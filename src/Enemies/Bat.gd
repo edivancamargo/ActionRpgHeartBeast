@@ -13,7 +13,7 @@ func _physics_process(delta):
 	knockback = move_and_slide(knockback)
 
 func _on_Hurtbox_area_entered(area):
-	stats.set_damage(1)
+	stats.set_damage(area.damage)
 	print(stats.health)
 	# area in this case is SwordHitbox.gd (Area2D), so, it has knockback_vector defined over there and
 	# we are updating its value in the PLayer.gd
