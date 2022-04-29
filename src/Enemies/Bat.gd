@@ -28,3 +28,4 @@ func _on_Stats_no_health():
 	var enemyDeathEffect = DeathEffect.instance()
 	enemyDeathEffect.position = global_position
 	get_parent().add_child(enemyDeathEffect)
+	enemyDeathEffect.set_offset(Vector2(0,-14))
