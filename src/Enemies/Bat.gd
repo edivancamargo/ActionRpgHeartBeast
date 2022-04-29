@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var stats = $Stats
+
 var knockback = Vector2.ZERO
 
 func _physics_process(delta):
