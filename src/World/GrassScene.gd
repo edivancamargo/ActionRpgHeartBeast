@@ -10,3 +10,7 @@ func create_grass_effect():
 	var grassEffect: Node2D = GrassEffect.instance() as Node2D
 	grassEffect.position = self.position
 	get_parent().add_child(grassEffect)
+	# Doing the same as above but accessing current scene. Not ideal
+#	var world = get_tree().current_scene
+#	world.add_child(grassEffect)
+#	grassEffect.global_position = global_position
