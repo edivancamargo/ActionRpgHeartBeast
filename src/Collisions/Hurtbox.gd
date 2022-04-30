@@ -1,16 +1,9 @@
 extends Area2D
 
+export(bool) var show_hit_effect = true
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+const HitEffect = preload("res://src/Effects/HitEffect.tscn")
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Hurtbox_area_entered(area):
+	if show_hit_effect:
+		HitEffect.instance().attach(self)
