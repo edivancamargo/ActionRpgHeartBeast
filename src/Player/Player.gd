@@ -65,12 +65,12 @@ func attack_state(delta):
 
 func attack_animation_finished():
 	# being called multiple times, check why..
-	print("attack anima finished")
+	print("attack animation finished")
 	state = player_state.MOVE
 
 func roll_animation_finished():
 	# being called multiple times, check why..
-	print("roll anima finished")
+	print("roll animation finished")
 	velocity = velocity * 0.4 # avoid to much slide at the end of animation
 	state = player_state.MOVE
 
