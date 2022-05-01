@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 var DeathEffect: Resource = preload("res://src/Effects/DeathEffect.tscn")
 
-export var ACCELERATION: int = 100
-export var MAX_SPEED: int = 20
+export var ACCELERATION: int = 150
+export var MAX_SPEED: int = 40
 export var FRICTION: int = 200
 
 enum {
@@ -17,6 +17,7 @@ var state = CHASE
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
+onready var batHurtbox = $Hurtbox
 
 var knockback = Vector2.ZERO
 var velocity = Vector2.ZERO
@@ -59,8 +60,9 @@ func return_to_initial_position() -> void:
 
 func _on_Hurtbox_area_entered(area) -> void:
 	stats.set_damage(area.damage)
+	batHurtbox.create_hit_effect()
 	# area in this case is SwordHitbox.gd (Area2D), so, it has knockback_vector defined over there and
-	# we are updating its value in the PLayer.gd
+	# we are updating its value in the Player.gd
 	# I don't like this solution though...
 	knockback = area.knockback_vector * 120
 
