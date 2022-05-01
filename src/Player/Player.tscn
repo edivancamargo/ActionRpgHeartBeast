@@ -637,8 +637,8 @@ graph_offset = Vector2( -151.177, 48.7792 )
 height = 12.0
 
 [sub_resource type="CapsuleShape2D" id=48]
-radius = 8.0
-height = 4.0
+radius = 5.0
+height = 0.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -655,6 +655,7 @@ hframes = 60
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 rotation = -1.57079
 shape = SubResource( 1 )
 
@@ -687,6 +688,7 @@ parameters/Roll/blend_position = Vector2( 0, 1 )
 parameters/Run/blend_position = Vector2( 0, 1 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
+visible = false
 position = Vector2( 0, -4 )
 rotation = 1.5708
 

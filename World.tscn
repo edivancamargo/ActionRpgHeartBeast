@@ -508,10 +508,18 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 1, 0, 196611, 8, 0, 3, 11, 0, 3, 65536, 0, 3, 65542, 0, 196611, 65544, 0, 131075, 65547, 0, 65539, 131072, 0, 196612, 131073, 0, 6, 131074, 0, 2, 131083, 0, 65539, 196609, 0, 65540, 196610, 0, 131074, 196614, 0, 4, 196615, 0, 196609, 196616, 0, 7, 196619, 0, 65539, 262145, 0, 65539, 262150, 0, 65539, 262152, 0, 131075, 262155, 0, 65539, 327680, 0, 0, 327681, 0, 131082, 327682, 0, 196609, 327683, 0, 196609, 327684, 0, 196610, 327686, 0, 131075, 327691, 0, 65539, 393216, 0, 131072, 393217, 0, 131074, 393226, 0, 4, 393227, 0, 196615, 458754, 0, 3, 458762, 0, 65539, 524288, 0, 4, 524289, 0, 196609, 524290, 0, 196615, 524297, 0, 4, 524298, 0, 196615, 589824, 0, 65539, 589831, 0, 4, 589832, 0, 196609, 589833, 0, 196615, 655360, 0, 196612, 655361, 0, 196609, 655362, 0, 196609, 655363, 0, 196609, 655364, 0, 196610, 655366, 0, 196608, 655367, 0, 196615 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 160, 90 )
+current = true
+smoothing_enabled = true
+
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 89, 27 )
+position = Vector2( 160, 90 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
+remote_path = NodePath("../../../Camera2D")
 
 [node name="Bushes" type="YSort" parent="YSort"]
 
@@ -547,13 +555,13 @@ position = Vector2( 236, 9 )
 [node name="Enemies" type="YSort" parent="YSort"]
 
 [node name="Bat" parent="YSort/Enemies" instance=ExtResource( 7 )]
-position = Vector2( 150, 75 )
+position = Vector2( 78, 31 )
 
 [node name="Bat2" parent="YSort/Enemies" instance=ExtResource( 7 )]
-position = Vector2( 98, 141 )
+position = Vector2( 78, 151 )
 
 [node name="Bat3" parent="YSort/Enemies" instance=ExtResource( 7 )]
-position = Vector2( 181, 124 )
+position = Vector2( 304, 113 )
 
 [node name="Bat4" parent="YSort/Enemies" instance=ExtResource( 7 )]
 position = Vector2( 240, 52 )
@@ -575,7 +583,9 @@ position = Vector2( 235, 171 )
 [node name="Tree" parent="YSort/Trees" instance=ExtResource( 9 )]
 position = Vector2( 117, 87 )
 
-[node name="HealthUI" parent="." instance=ExtResource( 8 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
 margin_left = 3.0
 margin_top = 5.0
 margin_right = 18.0
