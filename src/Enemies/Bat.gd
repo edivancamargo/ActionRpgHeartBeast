@@ -2,9 +2,9 @@ extends KinematicBody2D
 
 var DeathEffect: Resource = preload("res://src/Effects/DeathEffect.tscn")
 
-export var ACCELERATION: int = 150
-export var MAX_SPEED: int = 40
-export var FRICTION: int = 200
+export(int) var ACCELERATION: int = 150
+export(int) var MAX_SPEED: int = 40
+export(int) var FRICTION: int = 200
 
 enum {
 	IDLE,
@@ -18,6 +18,7 @@ onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
 onready var batHurtbox = $Hurtbox
+onready var softCollision = $SoftCollision
 
 var knockback = Vector2.ZERO
 var velocity = Vector2.ZERO
@@ -40,6 +41,8 @@ func _physics_process(delta) -> void:
 			chase_player(delta)
 			sprite.flip_h = velocity.x < 0
 	
+	if softCollision.is_colliding():
+		velocity += softCollision.get_push_vector() * delta * 200
 	velocity = move_and_slide(velocity)
 
 func seek_player(delta) -> void:

@@ -16,6 +16,7 @@ func set_max_health(value: int) -> void:
 	emit_signal("max_health_changed", max_health)
 
 func set_damage(damage: int):
+	print ("health before damage: " + String(self.health))
 	print("set_damage: " + String(damage))
 	self.health = self.health - damage
 	print ("health: " + String(self.health))

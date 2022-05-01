@@ -92,6 +92,7 @@ func move() -> void:
 	velocity = move_and_slide(velocity)
 
 func _on_Hurtbox_area_entered(area) -> void:
-	playerStats.set_damage(1)
+#	Area in this case is Hitbox
+	playerStats.set_damage(area.damage)
 	playerHurtbox.start_invincibility(0.5)
 	playerHurtbox.create_hit_effect()
