@@ -15,27 +15,33 @@ enum player_state {
 
 var state = player_state.MOVE
 
-var stats = PlayerStats
+# PlayerStats is a global autoload singleton
+var playerStats = PlayerStats
 
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
+onready var playerHurtbox = $Hurtbox
 
 func _ready():
-	stats.connect("no_health", self, "queue_free")
+	playerStats.connect("no_health", self, "dead")
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 
 func _process(delta):
 	match state:
 		player_state.MOVE:
-			run_state(delta)
+			running_state(delta)
 		player_state.ATTACK:
-			attack_state(delta)
+			attacking_state(delta)
 		player_state.ROLL:
-			roll_state(delta)
+			rolling_state(delta)
 
-func run_state(delta):
+func dead() -> void:
+	print("dead")
+	queue_free()
+
+func running_state(delta) -> void:
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -62,28 +68,30 @@ func run_state(delta):
 	if Input.is_action_just_pressed("roll_action"):
 		state = player_state.ROLL
 
-func attack_state(delta):
+func attacking_state(delta) -> void:
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
 
-func attack_animation_finished():
+func attack_animation_finished() -> void:
 	# being called multiple times, check why..
 	print("attack animation finished")
 	state = player_state.MOVE
 
-func roll_animation_finished():
+func roll_animation_finished() -> void:
 	# being called multiple times, check why..
 	print("roll animation finished")
 	velocity = velocity * 0.4 # avoid to much slide at the end of animation
 	state = player_state.MOVE
 
-func roll_state(delta):
+func rolling_state(delta) -> void:
 	velocity = roll_vector * ROLL_SPEED
 	animationState.travel("Roll")
 	move()
 
-func move():
+func move() -> void:
 	velocity = move_and_slide(velocity)
 
-func _on_Hurtbox_area_entered(area):
-	stats.health -= 1
+func _on_Hurtbox_area_entered(area) -> void:
+	playerStats.set_damage(1)
+	playerHurtbox.start_invincibility(0.5)
+	playerHurtbox.create_hit_effect()
