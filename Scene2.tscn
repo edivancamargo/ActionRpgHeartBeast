@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/World/DirtCliffTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/World/Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SceneTransition.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=4]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[node name="Scene2" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource( 2 )]
+
+[node name="DirtCliffTileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( -1, 0, 4, -65536, 0, 196610, -65526, 0, 196608, -65525, 0, 7, 65535, 0, 65539, 11, 0, 65539, 131071, 0, 65539, 65547, 0, 65539, 196607, 0, 65539, 131083, 0, 65539, 262143, 0, 65539, 196619, 0, 65539, 327679, 0, 65539, 262155, 0, 65539, 393215, 0, 65539, 327691, 0, 65539, 458751, 0, 65539, 393227, 0, 65539, 524287, 0, 65539, 458763, 0, 65539, 589823, 0, 65539, 524299, 0, 65539, 655359, 0, 65539, 589835, 0, 65539, 720895, 0, 196612, 655360, 0, 196609, 655361, 0, 196609, 655362, 0, 196609, 655363, 0, 196609, 655364, 0, 196609, 655365, 0, 196609, 655366, 0, 196609, 655367, 0, 196609, 655368, 0, 196609, 655369, 0, 196609, 655370, 0, 196609, 655371, 0, 196615 )
+
+[node name="SceneTransition" parent="DirtCliffTileMap" instance=ExtResource( 3 )]
+position = Vector2( 162, -31 )
+next_scene_path = "res://World.tscn"
+
+[node name="CollisionShape2D" parent="DirtCliffTileMap/SceneTransition" index="0"]
+position = Vector2( 14, -7 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 180, -13 )
+
+[node name="AnimationTree" parent="Player" index="4"]
+parameters/playback = SubResource( 1 )
+
+[editable path="DirtCliffTileMap/SceneTransition"]
+[editable path="Player"]
+[editable path="Player/HitboxPivot/SwordHitbox"]
+[editable path="Player/Hurtbox"]
